@@ -159,6 +159,10 @@ function Board() {
       const list = await res.json()
       
       if (res.ok) {
+        setBoard(prev => ({
+          ...prev,
+          lists: [...prev.lists, list]
+        }))
         socketContext.emitListCreated(id, list)
         setNewListName('')
         setShowAddList(false)
@@ -181,6 +185,10 @@ await fetch(`${API_URL}/api/boards/${id}/lists/${listId}`, {
       })
       
       socketContext.emitListDeleted(id, listId)
+      setBoard(prev => ({
+        ...prev,
+        lists: prev.lists.filter(l => l._id !== listId)
+      }))
     } catch (error) {
       console.error('Error deleting list:', error)
     }
@@ -226,6 +234,12 @@ await fetch(`${API_URL}/api/boards/${id}/lists/${listId}`, {
       const task = await res.json()
       
       if (res.ok) {
+        setBoard(prev => ({
+          ...prev,
+          lists: prev.lists.map(l => 
+            l._id === listId ? { ...l, tasks: [...l.tasks, task] } : l
+          )
+        }))
         socketContext.emitTaskCreated(id, listId, task)
         setNewTaskInputs({ ...newTaskInputs, [listId]: '' })
       }
@@ -245,6 +259,12 @@ await fetch(`${API_URL}/api/boards/${id}/lists/${listId}`, {
       })
       
       socketContext.emitTaskDeleted(id, listId, taskId)
+      setBoard(prev => ({
+        ...prev,
+        lists: prev.lists.map(l => 
+          l._id === listId ? { ...l, tasks: l.tasks.filter(t => t._id !== taskId) } : l
+        )
+      }))
     } catch (error) {
       console.error('Error deleting task:', error)
     }
