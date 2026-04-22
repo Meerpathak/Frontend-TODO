@@ -28,10 +28,16 @@ function Dashboard() {
           'Authorization': `Bearer ${token}`
         }
       })
-      const data = await res.json()
-      setBoards(data)
+      if (!res.ok) {
+        console.error('Failed to fetch boards:', res.status)
+        setBoards([])
+      } else {
+        const data = await res.json()
+        setBoards(Array.isArray(data) ? data : [])
+      }
     } catch (error) {
       console.error('Error fetching boards:', error)
+      setBoards([])
     } finally {
       setLoading(false)
     }

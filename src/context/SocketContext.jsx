@@ -21,6 +21,10 @@ export function SocketProvider({ children }) {
         console.log('Socket connected')
       })
 
+      newSocket.on('connect_error', (error) => {
+        console.log('Socket connection error:', error.message)
+      })
+
       newSocket.on('user-joined', (data) => {
         setConnectedUsers(data.users)
       })
