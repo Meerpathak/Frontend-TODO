@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import { useSocket } from '../hooks/useSocket'
 import { useAuth } from '../hooks/useAuth'
+import ThemeToggle from '../components/ThemeToggle'
 import API_URL from '../config/api'
 import '../styles/Board.css'
 
@@ -358,6 +359,7 @@ await fetch(`${API_URL}/api/boards/${id}/lists/${listId}`, {
           <h1 className="board-title">{board.name}</h1>
         </div>
         <div className="board-nav-right">
+          <ThemeToggle />
           {board.collaborators && board.collaborators.length > 0 && (
             <div className="board-users">
               {[board.creator, ...board.collaborators].map((u, i) => (
