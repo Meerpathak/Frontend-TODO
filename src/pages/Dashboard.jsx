@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth'
 import CreateBoardModal from '../components/CreateBoardModal'
 import JoinBoardModal from '../components/JoinBoardModal'
 import ThemeToggle from '../components/ThemeToggle'
+import API_URL from '../config/api'
 import '../styles/Dashboard.css'
 
 function Dashboard() {
@@ -22,7 +23,7 @@ function Dashboard() {
   const fetchBoards = async () => {
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch('/api/boards', {
+      const res = await fetch(`${API_URL}/api/boards`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -42,7 +43,7 @@ function Dashboard() {
 
     try {
       const token = localStorage.getItem('token')
-      await fetch(`/api/boards/${boardId}`, {
+      await fetch(`${API_URL}/api/boards/${boardId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

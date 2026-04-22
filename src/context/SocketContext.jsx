@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useRef } from 'react'
 import { io } from 'socket.io-client'
+import API_URL from '../config/api'
 
 export const SocketContext = createContext()
 
@@ -11,7 +12,7 @@ export function SocketProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      const newSocket = io('http://localhost:5000', {
+      const newSocket = io(API_URL, {
         auth: { token },
         transports: ['websocket', 'polling']
       })

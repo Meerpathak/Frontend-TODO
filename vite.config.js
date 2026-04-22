@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+const API_URL = 'https://backend-todo-1-z37u.onrender.com'
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -15,5 +17,12 @@ export default defineConfig({
         ws: true
       }
     }
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false
+  },
+  define: {
+    'import.meta.env.VITE_API_URL': JSON.stringify(API_URL)
   }
 })

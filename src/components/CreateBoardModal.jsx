@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import API_URL from '../config/api'
 
 function CreateBoardModal({ onClose, onSuccess }) {
   const [name, setName] = useState('Task Board')
@@ -13,7 +14,7 @@ function CreateBoardModal({ onClose, onSuccess }) {
 
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch('/api/boards', {
+      const res = await fetch(`${API_URL}/api/boards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

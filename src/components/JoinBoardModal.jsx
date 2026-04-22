@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import API_URL from '../config/api'
 
 function JoinBoardModal({ onClose, onSuccess }) {
   const [boardId, setBoardId] = useState('')
@@ -13,7 +14,7 @@ function JoinBoardModal({ onClose, onSuccess }) {
 
     try {
       const token = localStorage.getItem('token')
-      const res = await fetch('/api/boards/join', {
+      const res = await fetch(`${API_URL}/api/boards/join`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
