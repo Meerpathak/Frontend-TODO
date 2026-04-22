@@ -82,7 +82,7 @@ function CreateBoardModal({ onClose, onSuccess }) {
                   style={{ display: 'none' }}
                 />
                 <span style={{ fontWeight: 500 }}>Solo</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Only you can access</span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>(only)</span>
               </label>
               
               <label style={{ 
@@ -105,7 +105,7 @@ function CreateBoardModal({ onClose, onSuccess }) {
                   style={{ display: 'none' }}
                 />
                 <span style={{ fontWeight: 500 }}>Collaborative</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Share with team</span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>(only)</span>
               </label>
             </div>
           </div>
