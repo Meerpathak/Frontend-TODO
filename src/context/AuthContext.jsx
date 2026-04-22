@@ -26,12 +26,11 @@ export function AuthProvider({ children }) {
       if (res.ok) {
         const data = await res.json()
         setUser(data)
-      } else {
+      } else if (res.status === 401) {
         localStorage.removeItem('token')
       }
     } catch (error) {
       console.error('Error fetching user:', error)
-      localStorage.removeItem('token')
     } finally {
       setLoading(false)
     }
