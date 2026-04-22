@@ -9,7 +9,16 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
+    const savedUser = localStorage.getItem('user')
+    
     if (token) {
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser))
+        } catch {
+          localStorage.removeItem('user')
+        }
+      }
       fetchUser(token)
     } else {
       setLoading(false)
@@ -26,8 +35,10 @@ export function AuthProvider({ children }) {
       if (res.ok) {
         const data = await res.json()
         setUser(data)
+        localStorage.setItem('user', JSON.stringify(data))
       } else if (res.status === 401) {
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
       }
     } catch (error) {
       console.error('Error fetching user:', error)
@@ -45,6 +56,7 @@ export function AuthProvider({ children }) {
     const data = await res.json()
     if (res.ok) {
       localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data))
       setUser(data)
       return { success: true }
     }
@@ -60,6 +72,7 @@ export function AuthProvider({ children }) {
     const data = await res.json()
     if (res.ok) {
       localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data))
       setUser(data)
       return { success: true }
     }
@@ -68,6 +81,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     setUser(null)
   }
 
